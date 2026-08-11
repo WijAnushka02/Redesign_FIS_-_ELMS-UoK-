@@ -1,4 +1,4 @@
-# Redesign of the Faculty Information System(UoK - Faculty of Science)
+# ELMS — Redesign of the Faculty Information System
 
 A redesigned, secure, and intelligent academic portal for the Faculty of Science, replacing the legacy Faculty Information System (FIS). ELMS provides accurate GPA calculation, GPA simulation, degree classification tracking, personalized exam timetables, draft transcript generation, and an AI-powered academic guidance chatbot with voice support — built with role-based dashboards for students, lecturers, academic advisors, examination officers, and administrators.
 
@@ -57,7 +57,7 @@ Design and develop a modern, secure, responsive, scalable, and intelligent Facul
 - Role-based access control & secure authentication (JWT, MFA)
 
 ### Database
-- PostgreSQL 
+- PostgreSQL
 - Database indexing, transaction management, audit tables
 - Automated backups & data encryption
 
@@ -85,45 +85,84 @@ Design and develop a modern, secure, responsive, scalable, and intelligent Facul
 ### Design
 - Figma / Stitch AI (wireframing & prototyping)
 
-🏗️ System Architecture
-Infrastructure / DevOps
-Data Layer
-AI Service Layer (Python)
-Application Layer
-API Gateway / Reverse Proxy
-Client Layer
-deploys
-hosts
-hosts
-observes
-observes
-Web AppReact / Next.js
-Mobile Browser(Responsive PWA)
-NginxLoad Balancer + SSL
-Auth ServiceJWT · MFA · RBAC
-Core APIResults · GPA · Transcript ·Timetable
-Real-Time ServiceWebSockets / SSE
-Notification ServiceEmail · SMS · Push
-Rule-Based EngineGPA · Classification Rules
-ML ModelsDifficulty · Pass-Rate · Risk
-Chatbot / RAG EngineGenerative AI
-Voice AssistantSTT / TTS
-Local LLM RuntimeOffline Mode
-PostgreSQL / MySQLAcademic Records
-RedisCache & Sessions
-Audit Log Store
-Docker Containers
-GitHub ActionsCI/CD Pipeline
-Monitoring & Logging
+---
 
-Flow summary:
+## 🏗️ System Architecture
 
-Students/lecturers access the system via the responsive web client, routed through Nginx (SSL termination + load balancing).
-The Auth Service handles login, MFA, and role-based access before requests reach the Core API.
-The Core API manages results, GPA, transcripts, and timetables, backed by PostgreSQL/MySQL and Redis for caching/sessions.
-Real-time updates (lecturer posts, notifications) push to clients via WebSockets/SSE.
-The AI Service Layer runs separately in Python — the rule-based engine handles verified GPA/classification math, while the RAG chatbot (with optional local/offline LLM runtime) and ML models handle guidance, predictions, and voice interaction.
-All sensitive actions are written to the audit log; the whole stack is containerized with Docker and deployed via CI/CD.
+```mermaid
+flowchart TB
+    subgraph Client["Client Layer"]
+        WEB["Web App<br/>React / Next.js"]
+        MOBILE["Mobile Browser<br/>(Responsive PWA)"]
+    end
+
+    subgraph Gateway["API Gateway / Reverse Proxy"]
+        NGINX["Nginx<br/>Load Balancer + SSL"]
+    end
+
+    subgraph Backend["Application Layer"]
+        AUTH["Auth Service<br/>JWT · MFA · RBAC"]
+        CORE["Core API<br/>Results · GPA · Transcript · Timetable"]
+        RT["Real-Time Service<br/>WebSockets / SSE"]
+        NOTIF["Notification Service<br/>Email · SMS · Push"]
+    end
+
+    subgraph AI["AI Service Layer (Python)"]
+        RULE["Rule-Based Engine<br/>GPA · Classification Rules"]
+        ML["ML Models<br/>Difficulty · Pass-Rate · Risk"]
+        RAG["Chatbot / RAG Engine<br/>Generative AI"]
+        VOICE["Voice Assistant<br/>STT / TTS"]
+        LOCAL["Local LLM Runtime<br/>Offline Mode"]
+    end
+
+    subgraph Data["Data Layer"]
+        DB[("PostgreSQL / MySQL<br/>Academic Records")]
+        CACHE[("Redis<br/>Cache & Sessions")]
+        AUDIT[("Audit Log Store")]
+    end
+
+    subgraph Infra["Infrastructure / DevOps"]
+        DOCKER["Docker Containers"]
+        CI["GitHub Actions<br/>CI/CD Pipeline"]
+        MON["Monitoring & Logging"]
+    end
+
+    WEB --> NGINX
+    MOBILE --> NGINX
+    NGINX --> AUTH
+    NGINX --> CORE
+    NGINX --> RT
+
+    AUTH --> DB
+    AUTH --> CACHE
+    CORE --> DB
+    CORE --> CACHE
+    CORE --> AUDIT
+    CORE --> NOTIF
+    RT --> CORE
+
+    CORE --> RULE
+    CORE --> RAG
+    RAG --> RULE
+    RAG --> ML
+    RAG --> LOCAL
+    VOICE --> RAG
+    ML --> DB
+
+    DOCKER -.hosts.-> Backend
+    DOCKER -.hosts.-> AI
+    CI -.deploys.-> DOCKER
+    MON -.observes.-> Backend
+    MON -.observes.-> AI
+```
+
+**Flow summary:**
+1. Students/lecturers access the system via the responsive web client, routed through Nginx (SSL termination + load balancing).
+2. The Auth Service handles login, MFA, and role-based access before requests reach the Core API.
+3. The Core API manages results, GPA, transcripts, and timetables, backed by PostgreSQL/MySQL and Redis for caching/sessions.
+4. Real-time updates (lecturer posts, notifications) push to clients via WebSockets/SSE.
+5. The AI Service Layer runs separately in Python — the rule-based engine handles verified GPA/classification math, while the RAG chatbot (with optional local/offline LLM runtime) and ML models handle guidance, predictions, and voice interaction.
+6. All sensitive actions are written to the audit log; the whole stack is containerized with Docker and deployed via CI/CD.
 
 ---
 
@@ -259,3 +298,9 @@ elms-redesign/
 ```
 
 ---
+
+## 📌 Status
+Planning / Design phase — wireframes in progress via Stitch AI / Figma.
+
+## 📄 License
+*(Add your license here, e.g. MIT)*
