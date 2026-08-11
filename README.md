@@ -1,4 +1,4 @@
-# ELMS — Redesign of the Faculty Information System
+# Redesign of the Faculty Information System(UoK - Faculty of Science)
 
 A redesigned, secure, and intelligent academic portal for the Faculty of Science, replacing the legacy Faculty Information System (FIS). ELMS provides accurate GPA calculation, GPA simulation, degree classification tracking, personalized exam timetables, draft transcript generation, and an AI-powered academic guidance chatbot with voice support — built with role-based dashboards for students, lecturers, academic advisors, examination officers, and administrators.
 
