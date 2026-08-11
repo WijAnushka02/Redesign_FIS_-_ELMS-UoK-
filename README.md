@@ -302,5 +302,3 @@ elms-redesign/
 ## 📌 Status
 Planning / Design phase — wireframes in progress via Stitch AI / Figma.
 
-## 📄 License
-*(Add your license here, e.g. MIT)*
