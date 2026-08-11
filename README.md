@@ -46,24 +46,24 @@ Design and develop a modern, secure, responsive, scalable, and intelligent Facul
 ### Frontend
 - React / Next.js
 - TypeScript
-- Tailwind CSS or Material UI
+- Material UI
 - React Hook Form
 - Zod (validation)
-- Chart.js or Recharts
+- Chart.js
 
 ### Backend
-- Spring Boot / Node.js (Express) / ASP.NET Core *(one to be selected)*
+- Node.js (Express)
 - REST APIs
 - Role-based access control & secure authentication (JWT, MFA)
 
 ### Database
-- PostgreSQL or MySQL
+- PostgreSQL 
 - Database indexing, transaction management, audit tables
 - Automated backups & data encryption
 
 ### AI & Machine Learning
 - Python
-- FastAPI or Flask
+- Flask
 - scikit-learn, pandas, NumPy
 - Retrieval-Augmented Generation (RAG)
 - Approved LLM integration (with local/offline runtime option)
