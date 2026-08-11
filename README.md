@@ -85,6 +85,46 @@ Design and develop a modern, secure, responsive, scalable, and intelligent Facul
 ### Design
 - Figma / Stitch AI (wireframing & prototyping)
 
+🏗️ System Architecture
+Infrastructure / DevOps
+Data Layer
+AI Service Layer (Python)
+Application Layer
+API Gateway / Reverse Proxy
+Client Layer
+deploys
+hosts
+hosts
+observes
+observes
+Web AppReact / Next.js
+Mobile Browser(Responsive PWA)
+NginxLoad Balancer + SSL
+Auth ServiceJWT · MFA · RBAC
+Core APIResults · GPA · Transcript ·Timetable
+Real-Time ServiceWebSockets / SSE
+Notification ServiceEmail · SMS · Push
+Rule-Based EngineGPA · Classification Rules
+ML ModelsDifficulty · Pass-Rate · Risk
+Chatbot / RAG EngineGenerative AI
+Voice AssistantSTT / TTS
+Local LLM RuntimeOffline Mode
+PostgreSQL / MySQLAcademic Records
+RedisCache & Sessions
+Audit Log Store
+Docker Containers
+GitHub ActionsCI/CD Pipeline
+Monitoring & Logging
+
+Flow summary:
+
+Students/lecturers access the system via the responsive web client, routed through Nginx (SSL termination + load balancing).
+The Auth Service handles login, MFA, and role-based access before requests reach the Core API.
+The Core API manages results, GPA, transcripts, and timetables, backed by PostgreSQL/MySQL and Redis for caching/sessions.
+Real-time updates (lecturer posts, notifications) push to clients via WebSockets/SSE.
+The AI Service Layer runs separately in Python — the rule-based engine handles verified GPA/classification math, while the RAG chatbot (with optional local/offline LLM runtime) and ML models handle guidance, predictions, and voice interaction.
+All sensitive actions are written to the audit log; the whole stack is containerized with Docker and deployed via CI/CD.
+
 ---
 
 ## 🔐 Security & Privacy
